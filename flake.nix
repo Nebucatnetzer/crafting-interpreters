@@ -11,6 +11,7 @@
     {
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = [
+          pkgs.google-java-format
           pkgs.gradle
           pkgs.jdk23
         ];
