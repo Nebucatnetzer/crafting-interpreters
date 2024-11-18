@@ -7,20 +7,17 @@
     let
       system = "x86_64-linux";
       pkgs = inputs.nixpkgs.legacyPackages.${system};
+      jdt = (pkgs.jdt-language-server.override { jdk = pkgs.jdk21; });
     in
     {
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = [
           pkgs.google-java-format
           pkgs.gradle
-          pkgs.jdk23
+          pkgs.jdk21
+          jdt
         ];
-        NIX_LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
-          pkgs.stdenv.cc.cc
-          pkgs.openssl
-        ];
-        NIX_LD = pkgs.lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker";
-        # ^--- when using direnv, this line will require the 'use flake --impure' option.
+        JDTLS_PATH = "${jdt}/share/java/jdtls/";
       };
     };
 }
