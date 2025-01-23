@@ -7,14 +7,15 @@
     let
       system = "x86_64-linux";
       pkgs = inputs.nixpkgs.legacyPackages.${system};
-      jdt = (pkgs.jdt-language-server.override { jdk = pkgs.jdk21; });
+      java = pkgs.jdk23;
+      jdt = (pkgs.jdt-language-server.override { jdk = java; });
     in
     {
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = [
           pkgs.google-java-format
           pkgs.gradle
-          pkgs.jdk21
+          java
           jdt
         ];
         JDTLS_PATH = "${jdt}/share/java/jdtls/";
