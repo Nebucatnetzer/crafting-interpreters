@@ -13,6 +13,9 @@
     {
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = [
+          pkgs.entr
+          pkgs.gcc14
+          pkgs.gnumake
           pkgs.google-java-format
           pkgs.gradle
           java
