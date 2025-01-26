@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "dart2-nixpkgs": {
+      "locked": {
+        "lastModified": 1682483020,
+        "narHash": "sha256-H6REZ9y4gCeghIJRmy6H+UQNf2QVXA1dK121A5GvWyQ=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "27ae052ce0871efbe6bb0b2d5c60cde313a96ff7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "27ae052ce0871efbe6bb0b2d5c60cde313a96ff7",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1731676054,
@@ -18,6 +34,7 @@
     },
     "root": {
       "inputs": {
+        "dart2-nixpkgs": "dart2-nixpkgs",
         "nixpkgs": "nixpkgs"
       }
     }
