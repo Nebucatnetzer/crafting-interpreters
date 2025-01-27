@@ -7,6 +7,9 @@
     { ... }@inputs:
     let
       dart2pkgs = inputs.dart2-nixpkgs.legacyPackages.${system};
+      gradle = pkgs.gradle.override {
+        java = java;
+      };
       java = pkgs.jdk23;
       jdt = (pkgs.jdt-language-server.override { jdk = java; });
       pkgs = inputs.nixpkgs.legacyPackages.${system};
@@ -16,11 +19,11 @@
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = [
           dart2pkgs.dart # Dart version 2 is required to build the example Lox
+          gradle
           pkgs.entr
           pkgs.gcc14
           pkgs.gnumake
           pkgs.google-java-format
-          pkgs.gradle
           java
           jdt
         ];
