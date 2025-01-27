@@ -24,6 +24,10 @@
           java
           jdt
         ];
+        shellHook = ''
+          export GRADLE_USER_HOME="$(pwd)/.direnv/state/gradle"
+          mkdir -p "$GRADLE_USER_HOME"
+        '';
         JDTLS_PATH = "${jdt}/share/java/jdtls/";
       };
     };
