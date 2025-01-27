@@ -20,12 +20,12 @@
         buildInputs = [
           dart2pkgs.dart # Dart version 2 is required to build the example Lox
           gradle
+          java
+          jdt
           pkgs.entr
           pkgs.gcc14
           pkgs.gnumake
           pkgs.google-java-format
-          java
-          jdt
         ];
         shellHook = ''
           export GRADLE_USER_HOME="$(pwd)/.direnv/state/gradle"
