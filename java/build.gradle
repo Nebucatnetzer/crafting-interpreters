@@ -34,7 +34,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'org.craftinginterpreters.App'
+    mainClass = 'org.zweili.Lox'
 }
 
 tasks.named('test') {
