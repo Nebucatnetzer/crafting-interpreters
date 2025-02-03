@@ -93,9 +93,25 @@ class Scanner {
         break;
 
       default:
-        Lox.error(line, "Unexpected character.");
+        if (isDigit(c)) {
+          number();
+        } else {
+          Lox.error(line, "Unexpected character.");
+        }
         break;
     }
+  }
+
+  private void number() {
+    while (isDigit(peek())) advance();
+    // Look for a fractional part.
+    if (peek() == '.' && isDigit(peekNext())) {
+      // Consume the "."
+      advance();
+
+      while (isDigit(peek())) advance();
+    }
+    addToken(TokenType.NUMBER, Double.parseDouble(this.source.substring(this.start, this.current)));
   }
 
   private void string() {
@@ -128,6 +144,15 @@ class Scanner {
   private char peek() {
     if (isAtEnd()) return '\0';
     return this.source.charAt(current);
+  }
+
+  private char peekNext() {
+    if (this.current + 1 > +this.source.length()) return '\0';
+    return this.source.charAt(this.current + 1);
+  }
+
+  private boolean isDigit(char c) {
+    return c >= '0' && c <= '9';
   }
 
   private boolean isAtEnd() {
