@@ -6,6 +6,7 @@
   outputs =
     { self, ... }@inputs:
     let
+      DEVENV_ROOT = builtins.getEnv "PWD";
       dart2pkgs = inputs.dart2-nixpkgs.legacyPackages.${system};
       gradle = pkgs.gradle.override {
         java = java;
@@ -15,10 +16,17 @@
       pkgs = inputs.nixpkgs.legacyPackages.${system};
       system = "x86_64-linux";
       loxRepl = pkgs.writeShellApplication {
-        name = "loxr";
+        name = "loxjr";
         runtimeInputs = [ java ];
         text = ''
           java ${self}/java/src/main/java/org/zweili/Lox.java "$@"
+        '';
+      };
+      loxJavaDevRepl = pkgs.writeShellApplication {
+        name = "loxjr";
+        runtimeInputs = [ java ];
+        text = ''
+          java "${DEVENV_ROOT}/java/src/main/java/org/zweili/Lox.java" "$@"
         '';
       };
     in
@@ -28,11 +36,13 @@
         lox-repl = loxRepl;
       };
       devShells.${system}.default = pkgs.mkShell {
+        inherit DEVENV_ROOT;
         buildInputs = [
           dart2pkgs.dart # Dart version 2 is required to build the example Lox
           gradle
           java
           jdt
+          loxJavaDevRepl
           pkgs.entr
           pkgs.gcc14
           pkgs.gnumake
