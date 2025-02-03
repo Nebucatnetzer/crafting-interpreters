@@ -1,9 +1,5 @@
 package org.zweili;
 
-// TODO: Apperently static imports are considered to bad style. What would be
-// the good style? I prefer to be explicit.
-import static org.zweili.TokenType.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,34 +28,34 @@ class Scanner {
     char c = advance();
     switch (c) {
       case '(':
-        addToken(LEFT_PAREN);
+        addToken(TokenType.LEFT_PAREN);
         break;
       case ')':
-        addToken(RIGHT_PAREN);
+        addToken(TokenType.RIGHT_PAREN);
         break;
       case '{':
-        addToken(LEFT_BRACE);
+        addToken(TokenType.LEFT_BRACE);
         break;
       case '}':
-        addToken(RIGHT_BRACE);
+        addToken(TokenType.RIGHT_BRACE);
         break;
       case ',':
-        addToken(COMMA);
+        addToken(TokenType.COMMA);
         break;
       case '.':
-        addToken(DOT);
+        addToken(TokenType.DOT);
         break;
       case '-':
-        addToken(MINUS);
+        addToken(TokenType.MINUS);
         break;
       case '+':
-        addToken(PLUS);
+        addToken(TokenType.PLUS);
         break;
       case ';':
-        addToken(SEMICOLON);
+        addToken(TokenType.SEMICOLON);
         break;
       case '*':
-        addToken(STAR);
+        addToken(TokenType.STAR);
         break;
     }
   }
