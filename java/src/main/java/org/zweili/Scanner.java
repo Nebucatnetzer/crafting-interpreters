@@ -154,11 +154,15 @@ class Scanner {
   }
 
   private void identifier() {
-    while (isAlphaNumeric(peek())) advance();
+    while (isAlphaNumeric(peek())) {
+      advance();
+    }
 
     String text = this.source.substring(this.start, this.current);
     TokenType type = Scanner.keywords.get(text);
-    if (type == null) type = TokenType.IDENTIFIER;
+    if (type == null) {
+      type = TokenType.IDENTIFIER;
+    }
     addToken(type);
   }
 
@@ -176,7 +180,9 @@ class Scanner {
 
   private void string() {
     while (peek() != '"' && !isAtEnd()) {
-      if (peek() == '\n') this.line++;
+      if (peek() == '\n') {
+        this.line++;
+      }
       advance();
     }
 
@@ -194,20 +200,28 @@ class Scanner {
   }
 
   private boolean match(char expected) {
-    if (isAtEnd()) return false;
-    if (this.source.charAt(this.current) != expected) return false;
+    if (isAtEnd()) {
+      return false;
+    }
+    if (this.source.charAt(this.current) != expected) {
+      return false;
+    }
 
     this.current++;
     return true;
   }
 
   private char peek() {
-    if (isAtEnd()) return '\0';
+    if (isAtEnd()) {
+      return '\0';
+    }
     return this.source.charAt(current);
   }
 
   private char peekNext() {
-    if (this.current + 1 > +this.source.length()) return '\0';
+    if (this.current + 1 > +this.source.length()) {
+      return '\0';
+    }
     return this.source.charAt(this.current + 1);
   }
 
