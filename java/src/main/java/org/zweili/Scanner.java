@@ -69,6 +69,18 @@ class Scanner {
       case '>':
         addToken(match('=') ? TokenType.GREATER_EQUAL : TokenType.GREATER);
         break;
+      case '/':
+        if (match('/')) {
+          // A comment goes until the end of the line.
+          while (peek() != '\n' && !isAtEnd()) advance();
+        } else {
+          addToken(TokenType.SLASH);
+        }
+        break;
+
+      default:
+        Lox.error(line, "Unexpected character.");
+        break;
     }
   }
 
@@ -78,6 +90,11 @@ class Scanner {
 
     this.current++;
     return true;
+  }
+
+  private char peek() {
+    if (isAtEnd()) return '\0';
+    return this.source.charAt(current);
   }
 
   private boolean isAtEnd() {
