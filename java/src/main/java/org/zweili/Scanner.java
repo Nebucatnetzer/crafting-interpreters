@@ -21,11 +21,11 @@ class Scanner {
   List<Token> scanTokens() {
     while (!isAtEnd()) {
       // We are at the beginning of the next lexeme.
-      start = current;
+      this.start = this.current;
       scanToken();
     }
-    tokens.add(new Token(EOF, "", null, line));
-    return tokens;
+    this.tokens.add(new Token(TokenType.EOF, "", null, line));
+    return this.tokens;
   }
 
   private void scanToken() {
@@ -65,11 +65,11 @@ class Scanner {
   }
 
   private boolean isAtEnd() {
-    return current >= source.length();
+    return this.current >= this.source.length();
   }
 
   private char advance() {
-    return source.charAt(current++);
+    return this.source.charAt(this.current++);
   }
 
   private void addToken(TokenType type) {
@@ -77,7 +77,7 @@ class Scanner {
   }
 
   private void addToken(TokenType type, Object literal) {
-    String text = source.substring(start, current);
-    tokens.add(new Token(type, text, literal, line));
+    String text = this.source.substring(start, current);
+    this.tokens.add(new Token(type, text, literal, line));
   }
 }
