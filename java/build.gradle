@@ -36,7 +36,9 @@ application {
     // Define the main class for the application.
     mainClass = 'org.zweili.Lox'
 }
-
+run {
+  standardInput = System.in
+}
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
