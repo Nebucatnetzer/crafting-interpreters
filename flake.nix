@@ -31,6 +31,7 @@
 
       packages.${system} = {
         lox-repl = loxRepl;
+        default = self.packages.${system}.lox-repl;
       };
       devShells.${system}.default = pkgs.mkShell {
         inherit DEVENV_ROOT;
