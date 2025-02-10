@@ -7,9 +7,7 @@ https://craftinginterpreters.com/contents.html
 Make sure you have Nix and direnv installed.
 
 1. Enter directory and run `direnv allow`.
-2. After Nix is finished run `gradle` it does some stuff.
-
-To run the Lox Java REPL simply run: `loxjr`
+2. To run the Lox Java REPL simply run: `loxjr`
 
 ## Running LoxRepl
 
