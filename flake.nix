@@ -16,14 +16,14 @@
         name = "loxjr";
         runtimeInputs = [ java ];
         text = ''
-          java ${self}/java/src/main/java/org/zweili/Lox.java "$@"
+          java ${self}/java/org/zweili/Lox.java "$@"
         '';
       };
       loxJavaDevRepl = pkgs.writeShellApplication {
         name = "loxjr";
         runtimeInputs = [ java ];
         text = ''
-          java "${DEVENV_ROOT}/java/src/main/java/org/zweili/Lox.java" "$@"
+          java "${DEVENV_ROOT}/java/org/zweili/Lox.java" "$@"
         '';
       };
     in
