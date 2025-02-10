@@ -12,11 +12,30 @@
       jdt = (pkgs.jdt-language-server.override { jdk = java; });
       pkgs = inputs.nixpkgs.legacyPackages.${system};
       system = "x86_64-linux";
-      loxRepl = pkgs.writeShellApplication {
+      loxRepl = pkgs.stdenvNoCC.mkDerivation {
         name = "loxjr";
-        runtimeInputs = [ java ];
-        text = ''
-          java ${self}/java/org/zweili/Lox.java "$@"
+        src = self;
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+        buildInputs = [ java ];
+        buildPhase = ''
+          runHook preBuild
+
+          mkdir -p out/
+          javac -d out/ -sourcepath java/ -classpath out/ -encoding utf8 java/org/zweili/*.java
+
+          runHook postBuild
+        '';
+
+        installPhase = ''
+          runHook preInstall
+
+          mkdir -p $out/lib/
+          mv out $out/lib/lox
+
+          makeWrapper ${java}/bin/java $out/bin/loxjr \
+            --add-flags "-classpath $out/lib/lox org.zweili.Lox"
+
+          runHook postInstall
         '';
       };
       loxJavaDevRepl = pkgs.writeShellApplication {
