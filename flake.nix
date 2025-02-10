@@ -8,9 +8,6 @@
     let
       DEVENV_ROOT = builtins.getEnv "PWD";
       dart2pkgs = inputs.dart2-nixpkgs.legacyPackages.${system};
-      gradle = pkgs.gradle.override {
-        java = java;
-      };
       java = pkgs.jdk23;
       jdt = (pkgs.jdt-language-server.override { jdk = java; });
       pkgs = inputs.nixpkgs.legacyPackages.${system};
@@ -39,7 +36,6 @@
         inherit DEVENV_ROOT;
         buildInputs = [
           dart2pkgs.dart # Dart version 2 is required to build the example Lox
-          gradle
           java
           jdt
           loxJavaDevRepl
@@ -48,10 +44,6 @@
           pkgs.gnumake
           pkgs.google-java-format
         ];
-        shellHook = ''
-          export GRADLE_USER_HOME="$(pwd)/.direnv/state/gradle"
-          mkdir -p "$GRADLE_USER_HOME"
-        '';
         JDTLS_PATH = "${jdt}/share/java/jdtls/";
       };
     };
