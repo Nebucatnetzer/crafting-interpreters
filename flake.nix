@@ -8,7 +8,7 @@
     let
       DEVENV_ROOT = builtins.getEnv "PWD";
       dart2pkgs = inputs.dart2-nixpkgs.legacyPackages.${system};
-      java = pkgs.jdk23;
+      java = pkgs.jdk23_headless;
       jdt = (pkgs.jdt-language-server.override { jdk = java; });
       pkgs = inputs.nixpkgs.legacyPackages.${system};
       system = "x86_64-linux";
