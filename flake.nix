@@ -49,6 +49,7 @@
     {
 
       packages.${system} = {
+        expr-class = pkgs.callPackage ./tooling/nix/expr_class { };
         lox-repl = loxRepl;
         default = self.packages.${system}.lox-repl;
       };
