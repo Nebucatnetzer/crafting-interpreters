@@ -6,7 +6,6 @@
   outputs =
     { self, ... }@inputs:
     let
-      DEVENV_ROOT = builtins.getEnv "PWD";
       dart2pkgs = inputs.dart2-nixpkgs.legacyPackages.${system};
       java = pkgs.jdk23_headless;
       jdt = (pkgs.jdt-language-server.override { jdk = java; });
@@ -42,7 +41,7 @@
         name = "loxjr";
         runtimeInputs = [ java ];
         text = ''
-          java "${DEVENV_ROOT}/java/org/zweili/lox/Lox.java" "$@"
+          java "$DEVENV_ROOT/java/org/zweili/lox/Lox.java" "$@"
         '';
       };
     in
@@ -54,7 +53,6 @@
         default = self.packages.${system}.lox-repl;
       };
       devShells.${system}.default = pkgs.mkShell {
-        inherit DEVENV_ROOT;
         buildInputs = [
           dart2pkgs.dart # Dart version 2 is required to build the example Lox
           java
@@ -65,6 +63,11 @@
           pkgs.gnumake
           pkgs.google-java-format
         ];
+        shellHook = ''
+          DEVENV_ROOT="$PWD"
+          export DEVENV_ROOT
+          ln -s ${java}  "$PWD"/.direnv/java
+        '';
         JDTLS_PATH = "${jdt}/share/java/jdtls/";
       };
     };
