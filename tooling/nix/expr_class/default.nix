@@ -47,7 +47,7 @@ let
     '') classes;
 
   javaTemplate = ''
-    package org.zweili;
+    package org.zweili.lox;
 
     abstract class Expr {
       interface Visitor<R> {

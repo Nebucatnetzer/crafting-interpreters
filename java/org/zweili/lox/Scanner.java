@@ -1,4 +1,4 @@
-package org.zweili;
+package org.zweili.lox;
 
 import java.util.ArrayList;
 import java.util.HashMap;

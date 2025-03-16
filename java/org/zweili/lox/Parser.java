@@ -1,4 +1,4 @@
-package org.zweili;
+package org.zweili.lox;
 
 import java.util.List;
 
@@ -136,7 +136,7 @@ class Parser {
   }
 
   private Token peek() {
-    return tokens.get(this.current);
+    return this.tokens.get(this.current);
   }
 
   private Token previous() {

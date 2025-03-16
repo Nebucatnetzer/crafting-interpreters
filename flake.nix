@@ -21,7 +21,7 @@
           runHook preBuild
 
           mkdir -p out/
-          javac -d out/ -sourcepath java/ -classpath out/ -encoding utf8 java/org/zweili/*.java
+          javac -d out/ -sourcepath java/ -classpath out/ -encoding utf8 java/org/zweili/lox/*.java
 
           runHook postBuild
         '';
@@ -33,7 +33,7 @@
           mv out $out/lib/lox
 
           makeWrapper ${java}/bin/java $out/bin/loxjr \
-            --add-flags "-classpath $out/lib/lox org.zweili.Lox"
+            --add-flags "-classpath $out/lib/lox org.zweili.lox.Lox"
 
           runHook postInstall
         '';
@@ -42,7 +42,7 @@
         name = "loxjr";
         runtimeInputs = [ java ];
         text = ''
-          java "${DEVENV_ROOT}/java/org/zweili/Lox.java" "$@"
+          java "${DEVENV_ROOT}/java/org/zweili/lox/Lox.java" "$@"
         '';
       };
     in

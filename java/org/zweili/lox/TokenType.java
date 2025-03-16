@@ -1,4 +1,4 @@
-package org.zweili;
+package org.zweili.lox;
 
 enum TokenType {
   // Single-character tokens

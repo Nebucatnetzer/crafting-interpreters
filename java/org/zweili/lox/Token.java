@@ -1,4 +1,4 @@
-package org.zweili;
+package org.zweili.lox;
 
 class Token {
   final TokenType type;
