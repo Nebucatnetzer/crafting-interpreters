@@ -66,7 +66,7 @@
         shellHook = ''
           DEVENV_ROOT="$PWD"
           export DEVENV_ROOT
-          ln -s ${java}  "$PWD"/.direnv/java
+          ln -snf  "${java}"/lib/openjdk "$DEVENV_ROOT"/.direnv/java;
         '';
         JDTLS_PATH = "${jdt}/share/java/jdtls/";
       };
