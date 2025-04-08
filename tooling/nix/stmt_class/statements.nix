@@ -17,4 +17,17 @@
       }
     ];
   }
+  {
+    name = "Var";
+    fields = [
+      {
+        type = "Token";
+        name = "name";
+      }
+      {
+        type = "Expr";
+        name = "initializer";
+      }
+    ];
+  }
 ]

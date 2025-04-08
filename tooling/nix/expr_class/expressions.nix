@@ -47,4 +47,13 @@
       }
     ];
   }
+  {
+    name = "Variable";
+    fields = [
+      {
+        type = "Token";
+        name = "name";
+      }
+    ];
+  }
 ]
