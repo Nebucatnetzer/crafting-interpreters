@@ -11,6 +11,18 @@
       jdt = (pkgs.jdt-language-server.override { jdk = java; });
       pkgs = inputs.nixpkgs.legacyPackages.${system};
       system = "x86_64-linux";
+
+      generateAst = pkgs.writeShellApplication {
+        name = "gen-ast";
+        runtimeInputs = [ ];
+        text = ''
+          nix build .#expr-class
+          cp result/Expr.java java/org/zweili/lox/Expr.java
+          nix build .#stmt-class
+          cp result/Stmt.java java/org/zweili/lox/Stmt.java
+          chmod +w java/org/zweili/lox/*.java
+        '';
+      };
       loxRepl = pkgs.stdenvNoCC.mkDerivation {
         name = "loxjr";
         src = self;
@@ -56,6 +68,7 @@
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = [
           dart2pkgs.dart # Dart version 2 is required to build the example Lox
+          generateAst
           java
           jdt
           loxJavaDevRepl

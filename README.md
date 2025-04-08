@@ -14,6 +14,10 @@ Make sure you have Nix and direnv installed.
 1. Enter directory and run `direnv allow`.
 2. To run the Lox Java REPL simply run: `loxjr`
 
+### Helpers
+
+- `gen-ast` :: Generates the `Expr.java` and `Stmt.java` class files.
+
 ## Running LoxRepl
 
 ```
