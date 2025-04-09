@@ -1,5 +1,14 @@
 [
   {
+    name = "Block";
+    fields = [
+      {
+        type = "List<Stmt>";
+        name = "statements";
+      }
+    ];
+  }
+  {
     name = "Expression";
     fields = [
       {
