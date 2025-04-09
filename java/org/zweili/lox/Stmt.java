@@ -1,5 +1,7 @@
 package org.zweili.lox;
 
+import java.util.List;
+
 abstract class Stmt {
   interface Visitor<R> {
     R visitBlockStmt(Block stmt);
