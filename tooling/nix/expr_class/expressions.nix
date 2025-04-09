@@ -1,5 +1,18 @@
 [
   {
+    name = "Assign";
+    fields = [
+      {
+        type = "Token";
+        name = "name";
+      }
+      {
+        type = "Expr";
+        name = "value";
+      }
+    ];
+  }
+  {
     name = "Binary";
     fields = [
       {
