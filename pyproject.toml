@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lox"
+version = "0.1.0"
+
+[tool.black]
+line-length=80
+
+[tool.hatch.build.targets.sdit]
+include = [
+  "python",
+  "README.md"
+]
+[tool.hatch.build.targets.wheel]
+packages = [
+  "python/lox",
+]
+
+[tool.mypy]
+strict = true
+
+[tool.ruff]
+line-length = 80
+
+[tool.ruff.lint]
+select = [
+  "I",
+  "ALL"
+]
