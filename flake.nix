@@ -7,8 +7,7 @@
     { self, ... }@inputs:
     let
       dart2pkgs = inputs.dart2-nixpkgs.legacyPackages.${system};
-      java = pkgs.jdk23_headless;
-      jdt = (pkgs.jdt-language-server.override { jdk = java; });
+      python = pkgs.python3;
       pkgs = inputs.nixpkgs.legacyPackages.${system};
       system = "x86_64-linux";
 
@@ -17,43 +16,20 @@
         runtimeInputs = [ ];
         text = ''
           nix build .#expr-class
-          cp result/Expr.java java/org/zweili/lox/Expr.java
+          cp result/Expr.py python/Expr.py
           nix build .#stmt-class
-          cp result/Stmt.java java/org/zweili/lox/Stmt.java
-          chmod +w java/org/zweili/lox/*.java
+          cp result/Stmt.py Stmt.py
+          chmod +w python/*.py
         '';
       };
-      loxRepl = pkgs.stdenvNoCC.mkDerivation {
+      loxRepl = pkgs.writeShellScriptBin "loxp" ''
+        ${python}/bin/python3 ./python
+      '';
+      loxPythonDevRepl = pkgs.writeShellApplication {
         name = "loxjr";
-        src = self;
-        nativeBuildInputs = [ pkgs.makeWrapper ];
-        buildInputs = [ java ];
-        buildPhase = ''
-          runHook preBuild
-
-          mkdir -p out/
-          javac -d out/ -sourcepath java/ -classpath out/ -encoding utf8 java/org/zweili/lox/*.java
-
-          runHook postBuild
-        '';
-
-        installPhase = ''
-          runHook preInstall
-
-          mkdir -p $out/lib/
-          mv out $out/lib/lox
-
-          makeWrapper ${java}/bin/java $out/bin/loxjr \
-            --add-flags "-classpath $out/lib/lox org.zweili.lox.Lox"
-
-          runHook postInstall
-        '';
-      };
-      loxJavaDevRepl = pkgs.writeShellApplication {
-        name = "loxjr";
-        runtimeInputs = [ java ];
+        runtimeInputs = [ python ];
         text = ''
-          java "$DEVENV_ROOT/java/org/zweili/lox/Lox.java" "$@"
+          python3 "$DEVENV_ROOT/python" "$@"
         '';
       };
     in
@@ -69,20 +45,15 @@
         buildInputs = [
           dart2pkgs.dart # Dart version 2 is required to build the example Lox
           generateAst
-          java
-          jdt
-          loxJavaDevRepl
+          loxPythonDevRepl
           pkgs.entr
           pkgs.gcc14
           pkgs.gnumake
-          pkgs.google-java-format
         ];
         shellHook = ''
           DEVENV_ROOT="$PWD"
           export DEVENV_ROOT
-          ln -snf  "${java}"/lib/openjdk "$DEVENV_ROOT"/.direnv/java;
         '';
-        JDTLS_PATH = "${jdt}/share/java/jdtls/";
       };
     };
 }
