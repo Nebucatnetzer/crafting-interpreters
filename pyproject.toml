@@ -30,3 +30,6 @@ select = [
   "I",
   "ALL"
 ]
+ignore = [
+  "T201" # I like to use print sometimes
+]
