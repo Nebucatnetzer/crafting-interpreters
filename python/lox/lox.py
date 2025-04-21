@@ -10,7 +10,7 @@ class Lox:
         self.__run_prompt()
 
     def __run_file(self, path: Path) -> None:
-        with open(path) as file:
+        with Path.open(path, "r") as file:
             print(file.read())
         sys.exit(0)
 
