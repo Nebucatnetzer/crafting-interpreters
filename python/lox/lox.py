@@ -12,8 +12,6 @@ class Lox:
     def __run_file(self, path: Path) -> None:
         with Path.open(path, "r") as file:
             print(file.read())
-        sys.exit(0)
 
     def __run_prompt(self) -> None:
         print("prompt")
-        sys.exit(0)

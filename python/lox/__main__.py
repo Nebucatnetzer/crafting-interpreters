@@ -1,15 +1,20 @@
 import argparse
+import sys
 
 from lox import Lox
 
 
-def main() -> None:
+def parse_args(args: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="LoxRepl",
         description="A REPL for the Lox language.",
     )
     parser.add_argument("--filename", default=None, required=False)
-    args = parser.parse_args()
+    return parser.parse_args(args)
+
+
+def main() -> None:
+    args = parse_args(sys.argv[1:])
     lox = Lox()
     lox.main(args)
 
