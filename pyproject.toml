@@ -33,3 +33,8 @@ select = [
 ignore = [
   "T201" # I like to use print sometimes
 ]
+[tool.ruff.lint.per-file-ignores]
+"**/tests/*" = [
+  "D",
+  "INP001",
+]
