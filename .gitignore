@@ -121,3 +121,4 @@ build
 .settings
 .classpath
 /result
+/.coverage

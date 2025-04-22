@@ -1,10 +1,19 @@
 import argparse
 import sys
+from argparse import Namespace
+from pathlib import Path
 
-from lox import Lox
+
+def run_file(path: Path) -> None:
+    with Path.open(path, "r") as file:
+        print(file.read())
 
 
-def parse_args(args: list[str]) -> argparse.Namespace:
+def run_prompt() -> None:
+    print("prompt")
+
+
+def parse_args(args: list[str]) -> Namespace:
     parser = argparse.ArgumentParser(
         prog="LoxRepl",
         description="A REPL for the Lox language.",
@@ -15,8 +24,9 @@ def parse_args(args: list[str]) -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args(sys.argv[1:])
-    lox = Lox()
-    lox.main(args)
+    if args.filename:
+        run_file(args.filename)
+    run_prompt()
 
 
 if __name__ == "__main__":

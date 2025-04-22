@@ -33,6 +33,7 @@
         p.pylint
         p.pylsp-mypy
         p.pytest
+        p.pytest-cov
         p.python-lsp-ruff
         p.python-lsp-server
         p.ruff
