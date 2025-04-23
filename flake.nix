@@ -17,9 +17,7 @@
             inherit (pyproject.project) version;
 
             # The editable root passed as a string
-            root = "$DEVENV_ROOT/python/lox"; # Use environment variable expansion at runtime
-
-            inherit (pyproject.project) ;
+            root = "$DEVENV_ROOT/python"; # Use environment variable expansion at runtime
           };
         };
       };
