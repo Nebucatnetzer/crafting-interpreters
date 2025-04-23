@@ -20,11 +20,17 @@ packages = [
   "python/lox",
 ]
 
+[tool.isort]
+force_single_line = true
+
 [tool.mypy]
 strict = true
 
 [tool.ruff]
 line-length = 80
+
+[tool.ruff.isort]
+force-single-line = true
 
 [tool.ruff.lint]
 select = [
