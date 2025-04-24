@@ -1,8 +1,10 @@
 from pathlib import Path
 
 import pytest
+import lox
 from lox.__main__ import main
 from lox.__main__ import parse_args
+from lox.__main__ import run
 from lox.__main__ import run_file
 from lox.__main__ import run_prompt
 
@@ -13,10 +15,16 @@ def test_parse_args() -> None:
     assert args.filename == "README.md"
 
 
+def test_run(capsys: pytest.CaptureFixture[str]) -> None:
+    run("foo")
+    output, _ = capsys.readouterr()
+    assert "foo" in output
+
+
 def test_prompt(capsys: pytest.CaptureFixture[str]) -> None:
     run_prompt()
     output, _ = capsys.readouterr()
-    assert "prompt" in output
+    assert "> " in output
 
 
 def test_file(capsys: pytest.CaptureFixture[str]) -> None:
@@ -26,14 +34,20 @@ def test_file(capsys: pytest.CaptureFixture[str]) -> None:
     assert "var" in output
 
 
-def test_main(capsys: pytest.CaptureFixture[str]) -> None:
-    class Object:
-        filename: Path
+def test_main(
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def mock_args(_: list[str]) -> None:
+        class Object:
+            filename: Path
 
-    args = Object()
-    readme = Path("tests/example.lox")
-    args.filename = readme.absolute()
+        args = Object()
+        args.filename = Path("tests/example.lox")
+        return args
 
-    main(args)
+    monkeypatch.setattr(lox.__main__, "parse_args", mock_args)
+
+    main()
     output, _ = capsys.readouterr()
     assert "var" in output

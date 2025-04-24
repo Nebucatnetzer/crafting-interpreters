@@ -4,13 +4,22 @@ from argparse import Namespace
 from pathlib import Path
 
 
+def run(line: str) -> None:
+    print(line)
+
+
 def run_file(path: Path) -> None:
     with Path.open(path, "r") as file:
-        print(file.read())
+        for line in file.readlines():
+            run(line)
 
 
 def run_prompt() -> None:
-    print("prompt")
+    while True:
+        user_input = input("> ")
+        if not user_input:
+            break
+        run(user_input)
 
 
 def parse_args(args: list[str]) -> Namespace:
@@ -26,7 +35,8 @@ def main() -> None:
     args = parse_args(sys.argv[1:])
     if args.filename:
         run_file(args.filename)
-    run_prompt()
+    else:
+        run_prompt()
 
 
 if __name__ == "__main__":
