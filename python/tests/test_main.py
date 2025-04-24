@@ -38,9 +38,10 @@ def test_main(
     capsys: pytest.CaptureFixture[str],
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    def mock_args(_: list[str]) -> None:
-        class Object:
-            filename: Path
+    class Object:
+        filename: Path
+
+    def mock_args(_: list[str]) -> Object:
 
         args = Object()
         args.filename = Path("tests/example.lox")
