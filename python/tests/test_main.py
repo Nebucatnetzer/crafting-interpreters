@@ -8,7 +8,9 @@ from lox.__main__ import run_prompt
 
 
 def test_parse_args() -> None:
-    args = parse_args()
+    inputs: list[str] = ["--filename", "README.md"]
+    args = parse_args(args=inputs)
+    assert args.filename == "README.md"
 
 
 def test_prompt(capsys: pytest.CaptureFixture[str]) -> None:
