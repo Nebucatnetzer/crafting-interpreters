@@ -1,7 +1,7 @@
 from pathlib import Path
 
-import pytest
 import lox
+import pytest
 from lox.__main__ import main
 from lox.__main__ import parse_args
 from lox.__main__ import run
