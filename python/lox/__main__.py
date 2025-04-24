@@ -1,3 +1,5 @@
+"""Main entry point of loxp."""
+
 import argparse
 import sys
 from argparse import Namespace
@@ -7,6 +9,7 @@ HAD_ERROR = False
 
 
 def run(line: str) -> None:
+    """Run lox line."""
     print(line)
 
 
@@ -15,12 +18,14 @@ def error(line: int, message: str) -> None:
 
 
 def report(line: int, where: str, message: str) -> None:
+    """Report an eror and it's location."""
     global HAD_ERROR  # noqa: PLW0603
     print("[line " + str(line) + "] Error" + where + ": " + message)
     HAD_ERROR = True
 
 
 def run_file(path: Path) -> None:
+    """Run the provided lox file, line by line."""
     with Path.open(path, "r") as file:
         for line in file.readlines():
             run(line)
@@ -29,6 +34,7 @@ def run_file(path: Path) -> None:
 
 
 def run_prompt() -> None:
+    """Run the loxp REPL."""
     global HAD_ERROR  # noqa: PLW0603
     while True:
         user_input = input("> ")
@@ -39,6 +45,7 @@ def run_prompt() -> None:
 
 
 def parse_args(args: list[str]) -> Namespace:
+    """Initialise the arguments."""
     parser = argparse.ArgumentParser(
         prog="LoxRepl",
         description="A REPL for the Lox language.",
@@ -48,6 +55,7 @@ def parse_args(args: list[str]) -> Namespace:
 
 
 def main() -> None:
+    """Start loxp."""
     args = parse_args(sys.argv[1:])
     if args.filename:
         run_file(args.filename)
