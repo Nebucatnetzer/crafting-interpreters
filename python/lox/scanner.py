@@ -44,6 +44,12 @@ class Scanner:
             self.add_token(TokenType.SEMICOLON)
         if character == "*":
             self.add_token(TokenType.STAR)
+        if character == "/":
+            if self.match("/"):
+                while self.peek() != "\n" and not self.is_at_end():
+                    self.advance()
+            else:
+                self.add_token(TokenType.SLASH)
         error.error(self.line, "Unexpected character.")
 
     def match(self, expected: str) -> bool:
@@ -53,6 +59,11 @@ class Scanner:
             return False
         self.current += 1
         return True
+
+    def peek(self) -> str:
+        if self.is_at_end():
+            return "\0"
+        return self.source[self.current]
 
     def add_token(self, token_type: TokenType, literal: Any = None) -> None:
         text = self.source[self.start : self.current]

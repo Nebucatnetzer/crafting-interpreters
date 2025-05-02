@@ -25,3 +25,10 @@ def test_scan_match() -> None:
     assert scanner.match(expected="f")
     assert scanner.match(expected="o")
     assert not scanner.match(expected="o")
+
+
+def test_scan_peek() -> None:
+    scanner = Scanner(source="f")
+    assert "f" == scanner.peek()
+    scanner.advance()
+    assert "\0" == scanner.peek()
