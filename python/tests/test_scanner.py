@@ -10,11 +10,11 @@ def test_scan_token() -> None:
     characters = "(){},.-+;*"
     for character in characters:
         scanner = Scanner(source=character)
-        scanner._Scanner__scan_token()
-        assert scanner._Scanner__tokens[0].lexeme == character
+        scanner.scan_token()
+        assert scanner.tokens[0].lexeme == character
 
 
 def test_scan_error() -> None:
     scanner = Scanner(source="&")
-    scanner._Scanner__scan_token()
+    scanner.scan_token()
     assert error.HAD_ERROR

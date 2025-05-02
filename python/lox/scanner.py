@@ -7,47 +7,47 @@ from lox.token_type import TokenType
 
 class Scanner:
     def __init__(self, source: str) -> None:  # noqa: D107
-        self.__source = source
-        self.__tokens: list[Token] = []
-        self.__start: int = 0
-        self.__current: int = 0
-        self.__line: int = 1
+        self.source = source
+        self.tokens: list[Token] = []
+        self.start: int = 0
+        self.current: int = 0
+        self.line: int = 1
 
     def scan_tokens(self) -> list[Token]:
-        while self.__is_at_end():
-            self.__start = self.__current
+        while self.is_at_end():
+            self.start = self.current
             print()
         return []
 
-    def __is_at_end(self) -> bool:
-        return self.__current >= len(self.__source)
+    def is_at_end(self) -> bool:
+        return self.current >= len(self.source)
 
-    def __scan_token(self) -> None:
-        character = self.__advance()
+    def scan_token(self) -> None:
+        character = self.advance()
         if character == "(":
-            self.__add_token(TokenType.LEFT_PAREN)
+            self.add_token(TokenType.LEFT_PAREN)
         if character == ")":
-            self.__add_token(TokenType.RIGHT_PAREN)
+            self.add_token(TokenType.RIGHT_PAREN)
         if character == "{":
-            self.__add_token(TokenType.LEFT_PAREN)
+            self.add_token(TokenType.LEFT_PAREN)
         if character == "}":
-            self.__add_token(TokenType.RIGHT_BRACE)
+            self.add_token(TokenType.RIGHT_BRACE)
         if character == ",":
-            self.__add_token(TokenType.COMMA)
+            self.add_token(TokenType.COMMA)
         if character == ".":
-            self.__add_token(TokenType.DOT)
+            self.add_token(TokenType.DOT)
         if character == "-":
-            self.__add_token(TokenType.MINUS)
+            self.add_token(TokenType.MINUS)
         if character == "+":
-            self.__add_token(TokenType.PLUS)
+            self.add_token(TokenType.PLUS)
         if character == ";":
-            self.__add_token(TokenType.SEMICOLON)
+            self.add_token(TokenType.SEMICOLON)
         if character == "*":
-            self.__add_token(TokenType.STAR)
-        error.error(self.__line, "Unexpected character.")
+            self.add_token(TokenType.STAR)
+        error.error(self.line, "Unexpected character.")
 
     def __match(self) -> bool:
-        if self.__is_at_end:
+        if self.is_at_end():
             pass
 
     def add_token(self, token_type: TokenType, literal: Any = None) -> None:
