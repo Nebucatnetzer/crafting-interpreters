@@ -18,3 +18,10 @@ def test_scan_error() -> None:
     scanner = Scanner(source="&")
     scanner.scan_token()
     assert error.HAD_ERROR
+
+
+def test_scan_match() -> None:
+    scanner = Scanner(source="fo")
+    assert scanner.match(expected="f")
+    assert scanner.match(expected="o")
+    assert not scanner.match(expected="o")

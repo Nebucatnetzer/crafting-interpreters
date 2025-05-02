@@ -46,9 +46,13 @@ class Scanner:
             self.add_token(TokenType.STAR)
         error.error(self.line, "Unexpected character.")
 
-    def __match(self) -> bool:
+    def match(self, expected: str) -> bool:
         if self.is_at_end():
-            pass
+            return False
+        if self.source[self.current] != expected:
+            return False
+        self.current += 1
+        return True
 
     def add_token(self, token_type: TokenType, literal: Any = None) -> None:
         text = self.source[self.start : self.current]
