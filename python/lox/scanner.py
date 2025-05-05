@@ -24,60 +24,61 @@ class Scanner:
 
     def scan_token(self) -> None:
         character = self.advance()
-        if character in (" ", "\r", "\t"):
-            pass
-        elif character == "(":
-            self.add_token(TokenType.LEFT_PAREN)
-        elif character == ")":
-            self.add_token(TokenType.RIGHT_PAREN)
-        elif character == "{":
-            self.add_token(TokenType.LEFT_PAREN)
-        elif character == "}":
-            self.add_token(TokenType.RIGHT_BRACE)
-        elif character == ",":
-            self.add_token(TokenType.COMMA)
-        elif character == ".":
-            self.add_token(TokenType.DOT)
-        elif character == "-":
-            self.add_token(TokenType.MINUS)
-        elif character == "+":
-            self.add_token(TokenType.PLUS)
-        elif character == ";":
-            self.add_token(TokenType.SEMICOLON)
-        elif character == "*":
-            self.add_token(TokenType.STAR)
-        elif character == "!":
-            if self.match("="):
-                self.add_token(TokenType.BANG_EQUAL)
-            else:
-                self.add_token(TokenType.BANG)
-        elif character == "=":
-            if self.match("="):
-                self.add_token(TokenType.EQUAL_EQUAL)
-            else:
-                self.add_token(TokenType.EQUAL)
-        elif character == "<":
-            if self.match("="):
-                self.add_token(TokenType.LESS_EQUAL)
-            else:
-                self.add_token(TokenType.LESS)
-        elif character == ">":
-            if self.match("="):
-                self.add_token(TokenType.GREATER_EQUAL)
-            else:
-                self.add_token(TokenType.GREATER)
-        elif character == "/":
-            if self.match("/"):
-                while self.peek() != "\n" and not self.is_at_end():
-                    self.advance()
-            else:
-                self.add_token(TokenType.SLASH)
-        elif character == "\n":
-            self.line += 1
-        elif '"':
-            self.scan_string()
-        else:
-            error.error(self.line, "Unexpected character.")
+        match character:
+            case " " | "\r" | "\t":
+                pass
+            case "(":
+                self.add_token(TokenType.LEFT_PAREN)
+            case ")":
+                self.add_token(TokenType.RIGHT_PAREN)
+            case "{":
+                self.add_token(TokenType.LEFT_PAREN)
+            case "}":
+                self.add_token(TokenType.RIGHT_BRACE)
+            case ",":
+                self.add_token(TokenType.COMMA)
+            case ".":
+                self.add_token(TokenType.DOT)
+            case "-":
+                self.add_token(TokenType.MINUS)
+            case "+":
+                self.add_token(TokenType.PLUS)
+            case ";":
+                self.add_token(TokenType.SEMICOLON)
+            case "*":
+                self.add_token(TokenType.STAR)
+            case "!":
+                if self.match("="):
+                    self.add_token(TokenType.BANG_EQUAL)
+                else:
+                    self.add_token(TokenType.BANG)
+            case "=":
+                if self.match("="):
+                    self.add_token(TokenType.EQUAL_EQUAL)
+                else:
+                    self.add_token(TokenType.EQUAL)
+            case "<":
+                if self.match("="):
+                    self.add_token(TokenType.LESS_EQUAL)
+                else:
+                    self.add_token(TokenType.LESS)
+            case ">":
+                if self.match("="):
+                    self.add_token(TokenType.GREATER_EQUAL)
+                else:
+                    self.add_token(TokenType.GREATER)
+            case "/":
+                if self.match("/"):
+                    while self.peek() != "\n" and not self.is_at_end():
+                        self.advance()
+                else:
+                    self.add_token(TokenType.SLASH)
+            case "\n":
+                self.line += 1
+            case '"':
+                self.scan_string()
+            case _:
+                error.error(self.line, "Unexpected character.")
 
     def scan_string(self) -> None:
         while self.peek() != '"' and not self.is_at_end():
