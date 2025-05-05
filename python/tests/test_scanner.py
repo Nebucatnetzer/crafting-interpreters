@@ -21,6 +21,13 @@ def test_scan_error() -> None:
     error.HAD_ERROR = False
 
 
+def test_scan_comment() -> None:
+    scanner = Scanner(source="// comment")
+    scanner.scan_token()
+    assert scanner.tokens == []
+    assert not error.HAD_ERROR
+
+
 def test_scan_match() -> None:
     scanner = Scanner(source="fo")
     assert scanner.match(expected="f")
