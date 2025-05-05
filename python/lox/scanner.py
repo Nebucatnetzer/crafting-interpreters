@@ -44,6 +44,26 @@ class Scanner:
             self.add_token(TokenType.SEMICOLON)
         if character == "*":
             self.add_token(TokenType.STAR)
+        if character == "!":
+            if self.match("="):
+                self.add_token(TokenType.BANG_EQUAL)
+            else:
+                self.add_token(TokenType.BANG)
+        if character == "=":
+            if self.match("="):
+                self.add_token(TokenType.EQUAL_EQUAL)
+            else:
+                self.add_token(TokenType.EQUAL)
+        if character == "<":
+            if self.match("="):
+                self.add_token(TokenType.LESS_EQUAL)
+            else:
+                self.add_token(TokenType.LESS)
+        if character == ">":
+            if self.match("="):
+                self.add_token(TokenType.GREATER_EQUAL)
+            else:
+                self.add_token(TokenType.GREATER)
         if character == "/":
             if self.match("/"):
                 while self.peek() != "\n" and not self.is_at_end():

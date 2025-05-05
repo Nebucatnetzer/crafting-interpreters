@@ -7,7 +7,7 @@ def test_scanner_init() -> None:
 
 
 def test_scan_token() -> None:
-    characters = "(){},.-+;*"
+    characters = "(){},.-+;*<>="
     for character in characters:
         scanner = Scanner(source=character)
         scanner.scan_token()
