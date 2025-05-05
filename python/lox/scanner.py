@@ -25,6 +25,8 @@ class Scanner:
     def scan_token(self) -> None:
         character = self.advance()
         if character == "(":
+        if character in (" ", "\r", "\t"):
+            pass
             self.add_token(TokenType.LEFT_PAREN)
         if character == ")":
             self.add_token(TokenType.RIGHT_PAREN)
