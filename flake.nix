@@ -32,6 +32,7 @@
         p.pylsp-mypy
         p.pytest
         p.pytest-cov
+        p.pytest-xdist
         p.python-lsp-ruff
         p.python-lsp-server
         p.ruff
