@@ -14,9 +14,9 @@ class Scanner:
         self.line: int = 1
 
     def scan_tokens(self) -> list[Token]:
-        while self.is_at_end():
+        while not self.is_at_end():
             self.start = self.current
-            print()
+            self.scan_token()
         return []
 
     def is_at_end(self) -> bool:
@@ -24,55 +24,56 @@ class Scanner:
 
     def scan_token(self) -> None:
         character = self.advance()
-        if character == "(":
         if character in (" ", "\r", "\t"):
             pass
+        elif character == "(":
             self.add_token(TokenType.LEFT_PAREN)
-        if character == ")":
+        elif character == ")":
             self.add_token(TokenType.RIGHT_PAREN)
-        if character == "{":
+        elif character == "{":
             self.add_token(TokenType.LEFT_PAREN)
-        if character == "}":
+        elif character == "}":
             self.add_token(TokenType.RIGHT_BRACE)
-        if character == ",":
+        elif character == ",":
             self.add_token(TokenType.COMMA)
-        if character == ".":
+        elif character == ".":
             self.add_token(TokenType.DOT)
-        if character == "-":
+        elif character == "-":
             self.add_token(TokenType.MINUS)
-        if character == "+":
+        elif character == "+":
             self.add_token(TokenType.PLUS)
-        if character == ";":
+        elif character == ";":
             self.add_token(TokenType.SEMICOLON)
-        if character == "*":
+        elif character == "*":
             self.add_token(TokenType.STAR)
-        if character == "!":
+        elif character == "!":
             if self.match("="):
                 self.add_token(TokenType.BANG_EQUAL)
             else:
                 self.add_token(TokenType.BANG)
-        if character == "=":
+        elif character == "=":
             if self.match("="):
                 self.add_token(TokenType.EQUAL_EQUAL)
             else:
                 self.add_token(TokenType.EQUAL)
-        if character == "<":
+        elif character == "<":
             if self.match("="):
                 self.add_token(TokenType.LESS_EQUAL)
             else:
                 self.add_token(TokenType.LESS)
-        if character == ">":
+        elif character == ">":
             if self.match("="):
                 self.add_token(TokenType.GREATER_EQUAL)
             else:
                 self.add_token(TokenType.GREATER)
-        if character == "/":
+        elif character == "/":
             if self.match("/"):
                 while self.peek() != "\n" and not self.is_at_end():
                     self.advance()
             else:
                 self.add_token(TokenType.SLASH)
-        error.error(self.line, "Unexpected character.")
+        else:
+            error.error(self.line, "Unexpected character.")
 
     def match(self, expected: str) -> bool:
         if self.is_at_end():
