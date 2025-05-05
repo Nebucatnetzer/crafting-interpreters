@@ -72,6 +72,8 @@ class Scanner:
                     self.advance()
             else:
                 self.add_token(TokenType.SLASH)
+        elif character == "\n":
+            self.line += 1
         else:
             error.error(self.line, "Unexpected character.")
 
