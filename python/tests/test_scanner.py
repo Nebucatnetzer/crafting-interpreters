@@ -18,6 +18,7 @@ def test_scan_error() -> None:
     scanner = Scanner(source="&")
     scanner.scan_token()
     assert error.HAD_ERROR
+    error.HAD_ERROR = False
 
 
 def test_scan_match() -> None:
