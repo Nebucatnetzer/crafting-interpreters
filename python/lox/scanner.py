@@ -74,8 +74,21 @@ class Scanner:
                 self.add_token(TokenType.SLASH)
         elif character == "\n":
             self.line += 1
+        elif '"':
+            self.scan_string()
         else:
             error.error(self.line, "Unexpected character.")
+
+    def scan_string(self) -> None:
+        while self.peek() != '"' and not self.is_at_end():
+            if self.peek() == "\n":
+                self.line += 1
+            self.advance()
+        if self.is_at_end():
+            error.error(self.line, "Unterminated string.")
+        self.advance()
+        value: str = self.source[self.start + 1 : self.current - 1]
+        self.add_token(TokenType.STRING, literal=value)
 
     def match(self, expected: str) -> bool:
         if self.is_at_end():
