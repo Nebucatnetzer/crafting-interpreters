@@ -1,6 +1,5 @@
 from lox import error
 from lox.scanner import Scanner
-from lox.scanner import is_digit
 
 
 def test_scanner_init() -> None:
@@ -8,7 +7,7 @@ def test_scanner_init() -> None:
 
 
 def test_scan_token() -> None:
-    characters = "(){},.-+;*<>="
+    characters = "(){},.-+;*<>=100.16"
     for character in characters:
         scanner = Scanner(source=character)
         scanner.scan_token()
@@ -52,6 +51,3 @@ def test_scan_peek_next() -> None:
     assert "\0" == scanner.peek_next()
 
 
-def test_is_digit() -> None:
-    assert is_digit("100")
-    assert not is_digit("-100")

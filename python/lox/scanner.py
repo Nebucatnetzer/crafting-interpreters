@@ -78,7 +78,24 @@ class Scanner:
             case '"':
                 self.scan_string()
             case _:
-                error.error(self.line, "Unexpected character.")
+                if character.isdigit():
+                    self.scan_number()
+                else:
+                    error.error(self.line, "Unexpected character.")
+
+    def scan_number(self) -> None:
+        while self.peek().isdigit():
+            self.advance()
+
+        if self.peek() == "." and self.peek_next().isdigit():
+            # consume .
+            self.advance()
+            while self.peek().isdigit():
+                self.advance()
+        self.add_token(
+            TokenType.NUMBER,
+            literal=float(self.source[self.start : self.current]),
+        )
 
     def scan_string(self) -> None:
         while self.peek() != '"' and not self.is_at_end():
@@ -117,7 +134,3 @@ class Scanner:
         character = self.source[self.current]
         self.current += 1
         return character
-
-
-def is_digit(char: str) -> bool:
-    return char >= "0" and char <= "9"
