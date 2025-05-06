@@ -48,7 +48,7 @@
           cp result/expr.py python/lox/expr.py
           nix build .#stmt-class
           cp result/stmt.py python/lox/stmt.py
-          chmod +w python/*.py
+          chmod +w python/lox/*.py
         '';
       };
       loxRepl = pkgs.writeShellScriptBin "loxp" ''
