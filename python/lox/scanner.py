@@ -112,3 +112,7 @@ class Scanner:
         character = self.source[self.current]
         self.current += 1
         return character
+
+
+def is_digit(char: str) -> bool:
+    return char >= "0" and char <= "9"

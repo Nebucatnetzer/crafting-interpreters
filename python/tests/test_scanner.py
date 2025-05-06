@@ -1,5 +1,6 @@
 from lox import error
 from lox.scanner import Scanner
+from lox.scanner import is_digit
 
 
 def test_scanner_init() -> None:
@@ -40,3 +41,8 @@ def test_scan_peek() -> None:
     assert "f" == scanner.peek()
     scanner.advance()
     assert "\0" == scanner.peek()
+
+
+def test_is_digit() -> None:
+    assert is_digit("100")
+    assert not is_digit("-100")
