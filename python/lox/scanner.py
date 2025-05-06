@@ -37,7 +37,15 @@ class Scanner:
         while not self.is_at_end():
             self.start = self.current
             self.scan_token()
-        return []
+        self.tokens.append(
+            Token(
+                token_type=TokenType.EOF,
+                lexeme="",
+                literal=None,
+                line=self.line,
+            ),
+        )
+        return self.tokens
 
     def is_at_end(self) -> bool:
         return self.current >= len(self.source)
