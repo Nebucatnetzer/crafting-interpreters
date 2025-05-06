@@ -1,63 +1,50 @@
 {
-  google-java-format,
+  black,
   lib,
   stdenvNoCC,
 }:
 let
   expressions = import ./expressions.nix;
 
-  # Function to generate the Visitor interface methods
-  genVisitorMethods =
-    classes:
-    lib.concatMapStringsSep "\n    " (class: "R visit${class.name}Expr(${class.name} expr);") classes;
-
   # Function to generate the constructor for a class
   genConstructor =
     class:
     let
-      params = lib.concatStringsSep ", " (map (field: "${field.type} ${field.name}") class.fields);
-      assignments = lib.concatStringsSep "\n      " (
-        map (field: "this.${field.name} = ${field.name};") class.fields
+      params = lib.concatStringsSep ", " (map (field: "${field.name}: ${field.type}") class.fields);
+      assignments = lib.concatStringsSep "\n    " (
+        map (field: "    self.${field.name} = ${field.name}") class.fields
       );
     in
     ''
-      ${class.name}(${params}) {
-        ${assignments}
-      }
+      def __init__(self, ${params}) -> None:
+          ${assignments}
     '';
-
-  # Function to generate the fields for a class
-  genFields =
-    fields: lib.concatMapStringsSep "\n    " (field: "final ${field.type} ${field.name};") fields;
 
   # Function to generate each class
   genClasses =
     classes:
-    lib.concatMapStringsSep "\n\n  " (class: ''
-      static class ${class.name} extends Expr {
-        ${genConstructor class}
+    lib.concatMapStringsSep "\n\n" (class: ''
+      class ${class.name}(Expr):
+          ${genConstructor class}
+          def accept(self, visitor: Visitor):
+              return visitor.visit_${lib.toLower class.name}_expr(self)
 
-        @Override
-        <R> R accept(Visitor<R> visitor) {
-          return visitor.visit${class.name}Expr(this);
-        }
-
-        ${genFields class.fields}
-      }
     '') classes;
 
-  javaTemplate = ''
-    package org.zweili.lox;
+  pythonTemplate = ''
+    from abc import ABC
+    from abc import abstractmethod
 
-    abstract class Expr {
-      interface Visitor<R> {
-        ${genVisitorMethods expressions}
-      }
+    from token_cls import Token
+    from visitor import Visitor
 
-      ${genClasses expressions}
+    class Expr(ABC):
+      @abstractmethod
+      def accept(self, visitor):
+          pass
 
-      abstract <R> R accept(Visitor<R> visitor);
-    }
+
+    ${genClasses expressions}
   '';
 in
 stdenvNoCC.mkDerivation {
@@ -65,12 +52,12 @@ stdenvNoCC.mkDerivation {
   dontBuild = true;
   unpackPhase = "true";
   buildInputs = [
-    google-java-format
+    black
   ];
 
   installPhase = ''
     mkdir -p $out
-    echo "${javaTemplate}" > $out/Expr.java
-    google-java-format --replace $out/Expr.java
+    echo "${pythonTemplate}" > $out/expr.py
+    black $out/expr.py
   '';
 }

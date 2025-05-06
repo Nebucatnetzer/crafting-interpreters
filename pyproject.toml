@@ -25,6 +25,9 @@ force_single_line = true
 
 [tool.mypy]
 strict = true
+[[tool.mypy.overrides]]
+module = "lox.expr.*"
+disallow_untyped_defs = false
 
 [tool.ruff]
 line-length = 80

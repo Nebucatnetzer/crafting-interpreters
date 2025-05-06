@@ -45,7 +45,7 @@
         runtimeInputs = [ ];
         text = ''
           nix build .#expr-class
-          cp result/Expr.py python/lox/Expr.py
+          cp result/expr.py python/lox/expr.py
           nix build .#stmt-class
           cp result/Stmt.py python/lox/Stmt.py
           chmod +w python/*.py

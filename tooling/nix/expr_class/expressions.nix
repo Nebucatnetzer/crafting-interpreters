@@ -42,7 +42,7 @@
     name = "Literal";
     fields = [
       {
-        type = "Object";
+        type = "object";
         name = "value";
       }
     ];
