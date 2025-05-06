@@ -1,8 +1,8 @@
 from abc import ABC
 from abc import abstractmethod
 
-from token_cls import Token
-from visitor import Visitor
+from lox.token_cls import Token
+from lox.visitor import Visitor
 
 
 class Expr(ABC):
