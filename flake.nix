@@ -47,7 +47,7 @@
           nix build .#expr-class
           cp result/expr.py python/lox/expr.py
           nix build .#stmt-class
-          cp result/Stmt.py python/lox/Stmt.py
+          cp result/stmt.py python/lox/stmt.py
           chmod +w python/*.py
         '';
       };

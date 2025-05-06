@@ -28,6 +28,9 @@ strict = true
 [[tool.mypy.overrides]]
 module = "lox.expr.*"
 disallow_untyped_defs = false
+[[tool.mypy.overrides]]
+module = "lox.stmt.*"
+disallow_untyped_defs = false
 
 [tool.ruff]
 line-length = 80

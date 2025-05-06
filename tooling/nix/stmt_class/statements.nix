@@ -3,7 +3,7 @@
     name = "Block";
     fields = [
       {
-        type = "List<Stmt>";
+        type = "list[Stmt]";
         name = "statements";
       }
     ];
