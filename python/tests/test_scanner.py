@@ -37,17 +37,15 @@ def test_scan_match() -> None:
 
 def test_scan_peek() -> None:
     scanner = Scanner(source="fo")
-    assert "f" == scanner.peek()
+    assert scanner.peek() == "f"
     scanner.advance()
-    assert "o" == scanner.peek()
+    assert scanner.peek() == "o"
     scanner.advance()
-    assert "\0" == scanner.peek()
+    assert scanner.peek() == "\0"
 
 
 def test_scan_peek_next() -> None:
     scanner = Scanner(source="fo")
-    assert "o" == scanner.peek_next()
+    assert scanner.peek_next() == "o"
     scanner.advance()
-    assert "\0" == scanner.peek_next()
-
-
+    assert scanner.peek_next() == "\0"
