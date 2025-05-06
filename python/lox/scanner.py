@@ -1,4 +1,5 @@
 from typing import Any
+from typing import ClassVar
 
 from lox import error
 from lox.token_cls import Token
@@ -6,6 +7,25 @@ from lox.token_type import TokenType
 
 
 class Scanner:
+    keywords: ClassVar = {
+        "and": TokenType.AND,
+        "class": TokenType.CLASS,
+        "else": TokenType.ELSE,
+        "false": TokenType.FALSE,
+        "for": TokenType.FOR,
+        "fun": TokenType.FUN,
+        "if": TokenType.IF,
+        "nil": TokenType.NIL,
+        "or": TokenType.OR,
+        "print": TokenType.PRINT,
+        "return": TokenType.RETURN,
+        "super": TokenType.SUPER,
+        "this": TokenType.THIS,
+        "true": TokenType.TRUE,
+        "var": TokenType.VAR,
+        "while": TokenType.WHILE,
+    }
+
     def __init__(self, source: str) -> None:  # noqa: D107
         self.source = source
         self.tokens: list[Token] = []
@@ -80,8 +100,21 @@ class Scanner:
             case _:
                 if character.isdigit():
                     self.scan_number()
+                elif character.isalnum():
+                    self.scan_identifier()
                 else:
                     error.error(self.line, "Unexpected character.")
+
+    def scan_identifier(self) -> None:
+        while self.peek().isalnum():
+            self.advance()
+
+        text: str = self.source[self.start : self.current]
+        try:
+            token_type: TokenType = self.keywords[text]
+        except KeyError:
+            token_type = TokenType.IDENTIFIER
+        self.add_token(token_type)
 
     def scan_number(self) -> None:
         while self.peek().isdigit():

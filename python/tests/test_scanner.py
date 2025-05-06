@@ -1,5 +1,6 @@
 from lox import error
 from lox.scanner import Scanner
+from lox.token_type import TokenType
 
 
 def test_scanner_init() -> None:
@@ -49,3 +50,12 @@ def test_scan_peek_next() -> None:
     assert scanner.peek_next() == "o"
     scanner.advance()
     assert scanner.peek_next() == "\0"
+
+
+def test_scan_identifier() -> None:
+    scanner = Scanner(source="or")
+    scanner.scan_token()
+    assert scanner.tokens[0].token_type == TokenType.OR
+    scanner = Scanner(source="orchid")
+    scanner.scan_token()
+    assert scanner.tokens[0].token_type != TokenType.OR
