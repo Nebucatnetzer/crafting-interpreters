@@ -37,10 +37,19 @@ def test_scan_match() -> None:
 
 
 def test_scan_peek() -> None:
-    scanner = Scanner(source="f")
+    scanner = Scanner(source="fo")
     assert "f" == scanner.peek()
     scanner.advance()
+    assert "o" == scanner.peek()
+    scanner.advance()
     assert "\0" == scanner.peek()
+
+
+def test_scan_peek_next() -> None:
+    scanner = Scanner(source="fo")
+    assert "o" == scanner.peek_next()
+    scanner.advance()
+    assert "\0" == scanner.peek_next()
 
 
 def test_is_digit() -> None:

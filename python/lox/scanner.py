@@ -104,6 +104,11 @@ class Scanner:
             return "\0"
         return self.source[self.current]
 
+    def peek_next(self) -> str:
+        if (self.current + 1) >= len(self.source):
+            return "\0"
+        return self.source[self.current + 1]
+
     def add_token(self, token_type: TokenType, literal: Any = None) -> None:
         text = self.source[self.start : self.current]
         self.tokens.append(Token(token_type, text, literal, self.line))
