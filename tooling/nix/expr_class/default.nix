@@ -26,7 +26,7 @@ let
     lib.concatMapStringsSep "\n\n" (class: ''
       class ${class.name}(Expr):
           ${genConstructor class}
-          def accept(self, visitor: Visitor):
+          def accept(self, visitor):
               return visitor.visit_${lib.toLower class.name}_expr(self)
 
     '') classes;
@@ -36,7 +36,6 @@ let
     from abc import abstractmethod
 
     from lox.token_cls import Token
-    from lox.visitor import Visitor
 
     class Expr(ABC):
       @abstractmethod

@@ -6,11 +6,21 @@ from argparse import Namespace
 from pathlib import Path
 
 from lox import error
+from lox.ast_printer import AstPrinter
+from lox.token_parser import Parser
+from lox.scanner import Scanner
 
 
 def run(line: str) -> None:
     """Run lox line."""
-    print(line)
+    ast_printer = AstPrinter()
+    scanner = Scanner(line)
+    tokens = scanner.scan_tokens()
+    parser = Parser(tokens)
+    expression = parser.parse()
+    if error.HAD_ERROR:
+        return
+    print(ast_printer.print(expression))
 
 
 def run_file(path: Path) -> None:

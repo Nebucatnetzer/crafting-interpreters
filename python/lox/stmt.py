@@ -3,12 +3,11 @@ from abc import abstractmethod
 
 from lox.expr import Expr
 from lox.token_cls import Token
-from lox.visitor import Visitor
 
 
 class Stmt(ABC):
     @abstractmethod
-    def accept(self, visitor: Visitor):
+    def accept(self, visitor):
         pass
 
 
