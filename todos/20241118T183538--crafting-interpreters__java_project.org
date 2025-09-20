@@ -1,0 +1,132 @@
+#+title: Crafting Interpreters
+#+date: [2024-11-18 Mon 18:35]
+#+filetags: :java:project:
+#+identifier: 20241118T183538
+#+author: Andreas Zweili
+#+category: 20241118-crafting
+
+* PROJECT Crafting Interpreters
+
+- https://craftinginterpreters.com/contents.html
+
+** NEXT Chapter Thirteen
+** NEXT Chapter Twelve
+** NEXT Chapter Eleven
+** NEXT Chapter Ten
+** NEXT Chapter Nine
+** TODO Rewrite to Python [1/3]
+*** DONE Integrate ruff and pylint
+CLOSED: [2025-04-21 Mon 22:46]
+
+I'm used to working with pylint and would like to have it again.
+Currently it isn't working with Emacs eglot but maybe it does in combination with ~ruff~.
+
+https://docs.astral.sh/ruff/linter/
+
+I don't think pylint is integrated but ruff contains enough other stuff.
+
+*** NEXT Create a proper Nix derivation
+
+- [ ] Editable version
+  https://nixos.org/manual/nixpkgs/stable/#mkpythoneditablepackage-function
+- [ ] Normal version
+
+*** NEXT Integrate pytest
+
+I would like to have a working pytest integration.
+We first need the Nix derivation so that we can do something like this:
+
+#+begin_src python
+from lox.lox import Lox
+#+end_src
+
+** CANCELLED Java for Python devs
+CLOSED: [2025-05-24 Sat 10:25]
+
+[[https://runestone.academy/ns/books/published/java4python/Java4Python/firstjavaprogram.html][1.4. Lets look at a Java Program — Java for Python Programmers]]
+
+** DONE Chapter Eight
+CLOSED: [2025-04-10 Thu 19:00] DEADLINE: <2025-04-10 Thu>
+
+** DONE Chapter Seven
+CLOSED: [2025-03-29 Sat 16:45] DEADLINE: <2025-03-27 Thu>
+
+** DONE Chapter Six
+CLOSED: [2025-03-13 Thu 19:05] DEADLINE: <2025-03-13 Thu>
+
+https://craftinginterpreters.com/parsing-expressions.html
+
+** DONE Chapter Five
+CLOSED: [2025-02-27 Thu 20:08] DEADLINE: <2025-02-27 Thu>
+
+https://craftinginterpreters.com/representing-code.html
+
+**2025-02-24**
+It is quite hard to think about generating a class in a language that I don' know and the only thing he shows is the strings which we return.
+It drives me nuts that he starts using methods which he hasn't defined yet.
+
+** DONE Work through chapter Four
+CLOSED: [2025-02-15 Sat 12:19] DEADLINE: <2025-02-13 Thu>
+
+https://craftinginterpreters.com/scanning.html
+
+- [X] Why are static imports bad style and how can we do it better?
+  - I haven't looked it up yet but I think it is the same as with Python. It hides where variables are comming from.
+
+I think the way he adds the source code is a bit annoying.
+It's not written like a proper commit message so you constantly see code which isn't relevant at the moment but a few paragraphes later.
+This is especially the case with imports.
+You have them all at the top so you would have to remember which ones get imported or you add them manually later but then you don't see it when they are actually required because he doesn't show that in the code snippets.
+
+Java is very unfamiliar, what are:
+  - private/public
+  - static
+  - current
+  - general syntax of the language
+  - void :: I think this means that the function doesn't return anything
+  - Why don't I have to use this. to access class attributes?
+  - In the Scanner we have two times ~addToken~, how can that work?
+
+*** Challenges
+
+- The lexical grammars of Python and Haskell are not regular. What does that mean, and why aren’t they? ::
+- Aside from separating tokens—distinguishing print foo from printfoo—spaces aren’t used for much in most languages. However, in a couple of dark corners, a space does affect how code is parsed in CoffeeScript, Ruby, and the C preprocessor. Where and what effect does it have in each of those languages? ::
+- Our scanner here, like most, discards comments and whitespace since those aren’t needed by the parser. Why might you want to write a scanner that does not discard those? What would it be useful for? ::
+- Add support to Lox’s scanner for C-style /* ... */ block comments. Make sure to handle newlines in them. Consider allowing them to nest. Is adding support for nesting more work than you expected? Why? ::
+
+** DONE Work through chapter Two and Three
+CLOSED: [2025-01-27 Mon 09:43] DEADLINE: <2025-01-23 Thu>
+
+https://craftinginterpreters.com/the-lox-language.html
+
+** DONE Work through Chapter One
+CLOSED: [2025-01-10 Fri 11:01]
+
+** Features
+*** NEXT CMake Tutorial
+
+https://youtu.be/NGPo7mz1oa4
+
+*** NEXT Valgrind
+
+Check for Memory Leaks in C
+https://valgrind.org/
+
+* Defintions
+
+- Lexeme ::
+- LLVM :: Low Level Virtual Machine
+  The author explains this as well.
+  - https://en.wikipedia.org/wiki/LLVM
+  - https://craftinginterpreters.com/a-map-of-the-territory.html#virtual-machine
+- Token ::
+
+* Resources
+
+- Video Chat Keybindings :: https://whereby.com/blog/tips-and-shortcuts-to-become-a-whereby-pro/
+- https://discord.gg/xw7wAUe2nx
+- https://github.com/munificent/craftinginterpreters
+- https://www.meetup.com/coders-only/events/
+- https://github.com/nverno/lox-ts-mode
+- https://github.com/timmyjose-projects/lox-mode
+- https://codersonly.whereby.com/hello
